@@ -5,11 +5,7 @@
       style="width: 400px; height: 300px"
       class="border"
     ></textarea>
-    <el-button
-      @click="
-        (html) => (convertedValue.value = JSON.stringify(convert(newHtml)))
-      "
-    >
+    <el-button @click="() => (convertedValue = JSON.stringify(convert(html)))">
       convert
     </el-button>
     <textarea
@@ -173,7 +169,7 @@ const convert = (html: string) => {
   );
   const autorouteTitle = convertContainer.querySelector(
     ".mw-page-title-main"
-  ).textContent;
+  )!.textContent;
 
   tables.forEach((table, index) => {
     const lines = table.querySelectorAll("tr");
@@ -193,14 +189,13 @@ const convert = (html: string) => {
               .replace(/[\u0300-\u036f]/g, "")
           );
         });
-        console.log(keys);
         return;
       }
       const cols = line.querySelectorAll("td");
       let index = 0;
       let json: any = {
         id: uuidv4(),
-        autoroute: autorouteTitle.split("française ")[1].split(" ")[0],
+        autoroute: autorouteTitle!.split("française ")[1].split(" ")[0],
         sens,
       };
       cols.forEach((col) => {

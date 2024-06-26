@@ -8,7 +8,8 @@ export default interface RestArea {
   equipement_aire_de_repos: "Oui{string}" | "Non{string}";
   carburant?: string;
   recharge_electrique?: "Oui" | "Non";
-  restauration: string;
-  autres: string;
-  commentaires: string;
+  restauration?: string;
+  hotellerie?: string;
+  autres?: string;
+  commentaires?: string;
 }
