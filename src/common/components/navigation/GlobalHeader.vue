@@ -18,7 +18,6 @@
         </el-icon>
       </template>
     </el-autocomplete>
-    <router-link to="/wikitable-converter">coucou</router-link>
     <div class="flex justify-between items-center h-full gap-3">
       <el-text size="large">Guest</el-text>
       <el-avatar></el-avatar>
@@ -39,26 +38,19 @@ const querySearch = (queryString: string, cb: any) => {
   if (queryString.length < MIN_SEARCH_LENGTH) {
     return;
   }
-  console.log(
-    restAreas,
-    restAreas.filter(
-      (a) =>
-        a.nom.toLowerCase().includes(queryString.toLowerCase()) ||
-        queryString.toLowerCase().includes(a.nom.toLowerCase())
-    )
-  );
+
   cb(
     [
       ...new Set(
         restAreas
           .filter(
             (a) =>
-              a.nom.toLowerCase().includes(queryString.toLowerCase()) ||
-              queryString.toLowerCase().includes(a.nom.toLowerCase())
+              a.aire.toLowerCase().includes(queryString.toLowerCase()) ||
+              queryString.toLowerCase().includes(a.aire.toLowerCase())
           )
-          .map((a) => a.nom)
+          .map((a) => a.aire)
       ),
-    ].map((nom) => ({ value: nom }))
+    ].map((aire) => ({ value: aire }))
   );
 };
 
