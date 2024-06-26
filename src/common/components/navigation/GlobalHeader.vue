@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between items-center h-full">
-    <router-link to="/">
+    <router-link to="/" @click="resetHeaderSearch">
       <el-text size="large">Rest Area Tracker</el-text></router-link
     >
     <el-autocomplete
@@ -11,16 +11,8 @@
       class="w-full max-w-[450px]"
       size="large"
       placeholder="Search rest area"
-      @select="
-        (evt) => {
-          console.log('select', evt);
-        }
-      "
-      @keydown.enter="
-        (evt) => {
-          console.log('key', evt);
-        }
-      "
+      @select="selectSearch"
+      @keydown.enter="submitSearch"
     >
       <template #prefix>
         <el-icon class="el-input__icon">
@@ -39,10 +31,14 @@
 import { ref, watch } from "vue";
 import { Search } from "@element-plus/icons-vue";
 import { useRestAreaStore } from "../../stores/use-rest-area.store";
+import { useSettingsStore } from "../../stores/use-settings.store";
+import { useRouter } from "vue-router";
 
 const MIN_SEARCH_LENGTH = 3;
 const search = ref("");
-const { restAreas } = useRestAreaStore();
+const { filterRestAreasByName } = useRestAreaStore();
+const { setHeaderSearch } = useSettingsStore();
+const router = useRouter();
 
 const querySearch = (queryString: string, cb: any) => {
   if (queryString.length < MIN_SEARCH_LENGTH) {
@@ -50,21 +46,30 @@ const querySearch = (queryString: string, cb: any) => {
   }
 
   cb(
-    [
-      ...new Set(
-        restAreas
-          .filter(
-            (a) =>
-              a.aire.toLowerCase().includes(queryString.toLowerCase()) ||
-              queryString.toLowerCase().includes(a.aire.toLowerCase())
-          )
-          .map((a) => a.aire)
-      ),
-    ].map((aire) => ({ value: aire }))
+    filterRestAreasByName(queryString).map((a) => ({
+      value: `${a.aire} (${a.sens})`,
+      id: a.id,
+    }))
   );
 };
 
+const submitSearch = (evt: any) => {
+  console.log(evt);
+};
+
 watch(search, (newSearch) => {
-  console.log(newSearch);
+  setHeaderSearch(newSearch);
 });
+
+const selectSearch = (selected: { value: string; id: string }) => {
+  console.log(selected);
+  router.push({
+    name: "rest-area",
+    params: { id: selected.id },
+  });
+};
+
+const resetHeaderSearch = () => {
+  search.value = "";
+};
 </script>
