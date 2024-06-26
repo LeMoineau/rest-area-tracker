@@ -5,7 +5,13 @@
       style="width: 400px; height: 300px"
       class="border"
     ></textarea>
-    <el-button @click="convert(html)"> convert </el-button>
+    <el-button
+      @click="
+        (html) => (convertedValue.value = JSON.stringify(convert(newHtml)))
+      "
+    >
+      convert
+    </el-button>
     <textarea
       v-model="convertedValue"
       style="width: 400px; height: 300px"
@@ -17,6 +23,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { v4 as uuidv4 } from "uuid";
 
 const html = ref("");
 const headers = ref([
@@ -129,7 +136,9 @@ const allURLS = [
   "/wiki/Autoroute_fran%C3%A7aise_A837_(Aires)",
 ];
 
-watch(html, (newHtml) => convert(newHtml));
+watch(html, (newHtml) => {
+  convertedValue.value = JSON.stringify(convert(newHtml));
+});
 
 const convertAll = () => {
   let allRestArea = [];
@@ -157,20 +166,50 @@ const convert = (html: string) => {
   const list: any = [];
   convertContainer.innerHTML = html;
   const tables = convertContainer.querySelectorAll(
-    ".wikitable:not(.mw-collapsible)"
+    "h3+table, h3+.table-wide table"
   );
-  tables.forEach((table) => {
+  const sensH3 = convertContainer.querySelectorAll(
+    "h3:has(+table), h3:has(+.table-wide)"
+  );
+  const autorouteTitle = convertContainer.querySelector(
+    ".mw-page-title-main"
+  ).textContent;
+
+  tables.forEach((table, index) => {
     const lines = table.querySelectorAll("tr");
+    const sens = sensH3[index].textContent;
+    let keys = [...headers.value];
     lines.forEach((line) => {
+      const headersDom = line.querySelectorAll("th");
+      if (headersDom.length > 0) {
+        keys = [];
+        headersDom.forEach((h) => {
+          keys.push(
+            h
+              .textContent!.trim()
+              .toLowerCase()
+              .replace(/ /g, "_")
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+          );
+        });
+        console.log(keys);
+        return;
+      }
       const cols = line.querySelectorAll("td");
       let index = 0;
-      let json: any = {};
+      let json: any = {
+        id: uuidv4(),
+        autoroute: autorouteTitle.split("française ")[1].split(" ")[0],
+        sens,
+      };
       cols.forEach((col) => {
         const value = col.textContent!.trim();
-        json[headers.value[index]] = value === "/" ? undefined : value;
+        json[keys[index]] =
+          value === "/" || value.length <= 0 ? undefined : value;
         index += 1;
       });
-      if (Object.keys(json).length <= 0) return;
+      if (Object.keys(json).length <= 3) return;
       list.push(json);
     });
   });
