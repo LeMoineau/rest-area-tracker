@@ -11,6 +11,16 @@
       class="w-full max-w-[450px]"
       size="large"
       placeholder="Search rest area"
+      @select="
+        (evt) => {
+          console.log('select', evt);
+        }
+      "
+      @keydown.enter="
+        (evt) => {
+          console.log('key', evt);
+        }
+      "
     >
       <template #prefix>
         <el-icon class="el-input__icon">
