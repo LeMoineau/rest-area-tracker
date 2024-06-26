@@ -1,0 +1,284 @@
+[
+  {
+    "nom": "La Courneuve",
+    "type": "Service",
+    "localisation": "Km 5",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Oui",
+    "restauration": "Restauration rapide La Croissanterie, Columbus Café, Restaurant Café Bonjour",
+    "autres": "Zone Wi-Fi, Boutique Bonjour"
+  },
+  {
+    "nom": "Villeron",
+    "type": "Repos",
+    "localisation": "Km 24",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Vémars-Est",
+    "type": "Service",
+    "localisation": "Km 26",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Shell",
+    "recharge_electrique": "Oui",
+    "restauration": "Restaurant Léo Le Bistrot, Léo Resto",
+    "autres": "Zone Wi-Fi, Boutique Casino",
+    "commentaires": "Ancienne passerelle détruite"
+  },
+  {
+    "nom": "Survilliers-Est",
+    "type": "Repos",
+    "localisation": "Km 30",
+    "equipement_aire_de_repos": "Oui",
+    "commentaires": "Réservé aux PL"
+  },
+  {
+    "nom": "Chamant",
+    "type": "Repos",
+    "localisation": "Km 44",
+    "equipement_aire_de_repos": "Oui",
+    "commentaires": "Parking de la gare de péage de Chamant"
+  },
+  {
+    "nom": "Roberval",
+    "type": "Repos",
+    "localisation": "Km 53",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Chevrières",
+    "type": "Repos",
+    "localisation": "Km 60",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Remy",
+    "type": "Repos",
+    "localisation": "Km 68",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Ressons-Est",
+    "type": "Service",
+    "localisation": "Km 80",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Oui",
+    "restauration": "Restauration rapide Mc Donald's, Starbucks, Restaurant service à table Territoires de France, Restaurant libre-service Autogrill",
+    "autres": "Zone Wi-Fi, Boutique Ouishop, Bonjour"
+  },
+  {
+    "nom": "Tilloloy-Est",
+    "type": "Repos",
+    "localisation": "Km 92",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Goyencourt-Est",
+    "type": "Repos",
+    "localisation": "Km 104",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Fonches",
+    "type": "Repos",
+    "localisation": "Km 110",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Cœur des Hauts-de-France-Est",
+    "type": "Service",
+    "localisation": "Km 122",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "BP",
+    "recharge_electrique": "Oui",
+    "restauration": "Restaurant service à table Paul, Restaurant libre-service L'Arche, Restauration rapide Mc Donald's, Point de Vente Extérieur Manhattan Hot Dog",
+    "autres": "Zone Wi-Fi, Boutique Easy Drugstore, Carrefour Express",
+    "commentaires": "Première aire de France par sa fréquentation et son chiffre d'affaires, Anct Assevilliers-Est"
+  },
+  {
+    "nom": "Feuillères",
+    "type": "Repos",
+    "localisation": "Km 129",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Beaulencourt",
+    "type": "Repos",
+    "localisation": "Km 144",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Croisilles",
+    "type": "Repos",
+    "localisation": "Km 157",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Wancourt-Est",
+    "type": "Service",
+    "localisation": "Km 165",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "BP",
+    "recharge_electrique": "Oui",
+    "restauration": "Restaurant libre-service Ciao, Autogrill, Restauration rapide Starbucks",
+    "autres": "Zone Wi-Fi, Boutique Carrefour Express"
+  },
+  {
+    "nom": "Fresnes-lès-Montauban",
+    "type": "Repos",
+    "localisation": "Km 173",
+    "equipement_aire_de_repos": "Oui",
+    "commentaires": "Espace Clients Sanef, Parking de la gare de péage de Fresnes-lès-Montauban"
+  },
+  {
+    "nom": "Phalempin-Est",
+    "type": "Service",
+    "localisation": "Km 200",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Avia",
+    "recharge_electrique": "Oui",
+    "restauration": "Restaurant libre-service Flunch, Restaurant Flunch Café",
+    "autres": "Zone Wi-Fi, Boutique Monop"
+  },
+  {
+    "nom": "Phalempin-Ouest",
+    "type": "Service",
+    "localisation": "Km 200",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Oui",
+    "restauration": "Restauration rapide La Croissanterie, Restaurant libre-service Lunch Grill",
+    "commentaires": "Zone Wi-Fi, Boutique Bonjour"
+  },
+  {
+    "nom": "Fresnes-lès-Montauban",
+    "type": "Repos",
+    "localisation": "Km 173",
+    "equipement_aire_de_repos": "Oui",
+    "undefined": "Espace Clients Sanef, Parking de la gare de péage de Fresnes-lès-Montauban"
+  },
+  {
+    "nom": "Wancourt-Ouest",
+    "type": "Repos",
+    "localisation": "Km 165",
+    "equipement_aire_de_repos": "Oui",
+    "undefined": "Par la passerelle : Côté France (restaurant), jeux d'enfants et distributeur de billets"
+  },
+  {
+    "nom": "Saint-Léger",
+    "type": "Service",
+    "localisation": "Km 155",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Avia",
+    "recharge_electrique": "Oui",
+    "restauration": "Bar/buffet/comptoir Cafés Richard, Restauration rapide L'Atelier Charal, Tasty & Co",
+    "commentaires": "Zone Wi-Fi, Boutique Casino Express"
+  },
+  {
+    "nom": "Maurepas",
+    "type": "Repos",
+    "localisation": "Km 131",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Cœur des Hauts-de-France-Ouest",
+    "type": "Service",
+    "localisation": "Km 122",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Esso",
+    "recharge_electrique": "Non",
+    "restauration": "Restaurant service à table Paul, Restaurant libre-service L'Arche, Restauration rapide Mc Donald's",
+    "autres": "Hôtel Ibis Styles",
+    "commentaires": "Zone Wi-Fi, Boutique Franprix, Easy Drugstore",
+    "undefined": "Première aire de France par sa fréquentation et son chiffre d'affaires, Anct Assevilliers-Ouest"
+  },
+  {
+    "nom": "Hattencourt",
+    "type": "Repos",
+    "localisation": "Km 110",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Goyencourt-Ouest",
+    "type": "Repos",
+    "localisation": "Km 104",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Tilloloy-Ouest",
+    "type": "Repos",
+    "localisation": "Km 92",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Ressons-Ouest",
+    "type": "Service",
+    "localisation": "Km 80",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Oui",
+    "restauration": "Restaurant libre-service Flunch, Restaurant Flunch Café",
+    "commentaires": "Zone Wi-Fi, Boutique Bonjour",
+    "undefined": "Passerelle routière reliant cette aire à l'aire de Ressons-Est"
+  },
+  {
+    "nom": "Bois d'Arsy",
+    "type": "Repos",
+    "localisation": "Km 68",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Longueil-Sainte-Marie",
+    "type": "Repos",
+    "localisation": "Km 61",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Roberval-Ouest",
+    "type": "Repos",
+    "localisation": "Km 54",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "Chamant",
+    "type": "Repos",
+    "localisation": "Km 44",
+    "equipement_aire_de_repos": "Oui",
+    "undefined": "Espace clients Sanef, Parking de la gare de péage de Chamant"
+  },
+  {
+    "nom": "Survilliers-Ouest",
+    "type": "Repos",
+    "localisation": "Km 30",
+    "equipement_aire_de_repos": "Oui",
+    "undefined": "Réservée aux PL"
+  },
+  {
+    "nom": "Vémars-Ouest",
+    "type": "Service",
+    "localisation": "Km 26",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Oui",
+    "restauration": "Restauration rapide La Croissanterie, Restaurant Mezzo Di Pasta",
+    "commentaires": "Zone Wi-Fi, Boutique Bonjour",
+    "undefined": "Ancienne passerelle détruite"
+  },
+  {
+    "nom": "Chennevières",
+    "type": "Repos",
+    "localisation": "Km 23",
+    "equipement_aire_de_repos": "Oui"
+  },
+  {
+    "nom": "La Courneuve",
+    "type": "Service",
+    "localisation": "Km 5",
+    "equipement_aire_de_repos": "Oui",
+    "carburant": "Total",
+    "recharge_electrique": "Non",
+    "commentaires": "Zone Wi-Fi, Boutique Bonjour"
+  }
+]

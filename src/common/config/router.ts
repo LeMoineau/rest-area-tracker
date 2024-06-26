@@ -1,12 +1,17 @@
 import { createMemoryHistory, createRouter } from "vue-router";
-import Home from "../../app/home/Home.vue";
-import HelloWorld from "./../components/HelloWorld.vue";
+import RestAreaList from "./../../app/rest-area-list/RestAreaList.vue";
+import WikitableConverter from "./../../app/wikitable-converter/WikitableConverter.vue";
 
 const routes = [
   {
     path: "/",
-    component: Home,
-    children: [{ path: "", name: "home", component: HelloWorld }],
+    name: "home",
+    component: RestAreaList,
+  },
+  {
+    path: "/wikitable-converter",
+    name: "wikitable-converter",
+    component: WikitableConverter,
   },
 ];
 
