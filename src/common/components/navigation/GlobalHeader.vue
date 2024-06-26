@@ -22,7 +22,7 @@
     </el-autocomplete>
     <div class="flex justify-between items-center h-full gap-3">
       <el-text size="large">Guest</el-text>
-      <el-avatar></el-avatar>
+      <el-avatar id="test"></el-avatar>
     </div>
   </div>
 </template>
@@ -53,8 +53,9 @@ const querySearch = (queryString: string, cb: any) => {
   );
 };
 
-const submitSearch = (evt: any) => {
-  console.log(evt);
+const submitSearch = (evt: KeyboardEvent) => {
+  if (evt.target === null || !(evt.target instanceof HTMLElement)) return;
+  evt.target.blur();
 };
 
 watch(search, (newSearch) => {
