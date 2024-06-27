@@ -3,23 +3,25 @@
     <router-link to="/" @click="resetHeaderSearch">
       <el-text size="large">Rest Area Tracker</el-text></router-link
     >
-    <el-autocomplete
-      v-model="search"
-      :fetch-suggestions="querySearch"
-      :trigger-on-focus="false"
-      clearable
-      class="w-full max-w-[450px]"
-      size="large"
-      placeholder="Search rest area"
-      @select="selectSearch"
-      @keydown.enter="submitSearch"
-    >
-      <template #prefix>
-        <el-icon class="el-input__icon">
-          <Search></Search>
-        </el-icon>
-      </template>
-    </el-autocomplete>
+    <div class="flex flex-row items-center gap-2">
+      <el-autocomplete
+        v-model="search"
+        :fetch-suggestions="querySearch"
+        :trigger-on-focus="false"
+        clearable
+        class="w-full max-w-[450px]"
+        size="large"
+        placeholder="Search rest area"
+        @select="selectSearch"
+        @keydown.enter="submitSearch"
+      >
+        <template #prefix>
+          <el-icon class="el-input__icon">
+            <Search></Search>
+          </el-icon>
+        </template>
+      </el-autocomplete>
+    </div>
     <div class="flex justify-between items-center h-full gap-3">
       <el-text size="large">Guest</el-text>
       <el-avatar id="test"></el-avatar>
@@ -36,7 +38,7 @@ import { useRouter } from "vue-router";
 
 const MIN_SEARCH_LENGTH = 3;
 const search = ref("");
-const { filterRestAreasByName } = useRestAreaStore();
+const { getByName } = useRestAreaStore();
 const { setHeaderSearch } = useSettingsStore();
 const router = useRouter();
 
@@ -46,7 +48,7 @@ const querySearch = (queryString: string, cb: any) => {
   }
 
   cb(
-    filterRestAreasByName(queryString).map((a) => ({
+    getByName(queryString).map((a) => ({
       value: `${a.aire} (${a.sens})`,
       id: a.id,
     }))

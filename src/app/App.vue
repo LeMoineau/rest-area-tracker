@@ -7,6 +7,10 @@ import GlobalHeader from "../common/components/navigation/GlobalHeader.vue";
     <el-header class="border-b">
       <GlobalHeader></GlobalHeader>
     </el-header>
-    <el-main> <router-view></router-view></el-main>
+    <el-main>
+      <div class="flex flex-row justify-center items-center w-full">
+        <router-view></router-view>
+      </div>
+    </el-main>
   </el-container>
 </template>
