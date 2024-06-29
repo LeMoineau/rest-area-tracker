@@ -19,11 +19,6 @@
     </div>
     <!-- Page Core -->
     <div class="py-4 w-full">
-      <el-image
-        class="flex flex-col items-center justify-center rounded"
-        fit="cover"
-        :src="restArea?.img"
-      ></el-image>
       <div class="flex flex-row gap-4">
         <el-descriptions :border="true" :column="1" class="w-full">
           <template #title>
@@ -66,11 +61,19 @@
       </div>
       <div class="flex flex-row pt-6 gap-2">
         <div class="flex flex-col text-left w-full">
-          <h2 class="font-semibold pb-1">Commentaires :</h2>
+          <h2 class="font-semibold pb-1">Commentaires</h2>
           <p class="h-full w-full border rounded p-4">
             {{ restArea?.commentaires ?? "Aucun commentaire" }}
           </p>
         </div>
+      </div>
+      <div class="flex flex-col items-start pt-6" v-if="restArea?.img">
+        <h2 class="font-semibold pb-1">Images</h2>
+        <el-image
+          class="flex flex-col items-center justify-center rounded"
+          fit="cover"
+          :src="restArea?.img"
+        ></el-image>
       </div>
     </div>
     <!-- Suggestions -->

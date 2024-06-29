@@ -10,7 +10,7 @@
         <h4 class="w-full text-left truncate">
           {{ restArea.aire }}
         </h4>
-        <div class="flex flex-row items-center gap-2">
+        <div class="flex flex-row items-center gap-2 w-full overflow-hidden">
           <el-tag size="small">{{ restArea.sens }}</el-tag>
           <p class="text-xs" v-if="restArea.carburant">⛽</p>
           <p class="text-xs" v-if="restArea.recharge_electrique">⚡</p>
