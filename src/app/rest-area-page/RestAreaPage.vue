@@ -68,11 +68,7 @@
         <div class="flex flex-col text-left w-full">
           <h2 class="font-semibold pb-1">Commentaires / Autres :</h2>
           <p class="h-full w-full border rounded p-4">
-            {{
-              restArea?.commentaires || restArea?.autres
-                ? restArea?.commentaires + " " + restArea?.autres
-                : "Aucun commentaire"
-            }}
+            {{ comentaires }}
           </p>
         </div>
       </div>
@@ -106,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import RestArea from "../../common/types/RestArea";
 import YesNoTag from "./../../common/components/items/YesNoTag.vue";
@@ -119,7 +115,19 @@ const { getById } = useRestAreaStore();
 
 const restArea = ref<RestArea>();
 
-const { suggestions } = useRestAreaSuggestions(restArea, 5);
+const { suggestions } = useRestAreaSuggestions(restArea);
+
+const comentaires = computed(() => {
+  if (
+    !restArea.value ||
+    (!restArea.value.commentaires && !restArea.value.autres)
+  ) {
+    return "Aucun commentaire";
+  }
+  return `${restArea.value.commentaires ?? ""}${
+    restArea.value.commentaires && restArea.value.autres ? "\n" : ""
+  }${restArea.value.autres ?? ""}`;
+});
 
 onMounted(() => {
   const id = route.params.id;

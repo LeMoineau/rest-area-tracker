@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 left-0 border-b shrink-0 w-full px-2 h-auto bg-white flex-col justify-between items-start md:items-center"
+    class="z-10 sticky top-0 left-0 border-b shrink-0 w-full px-2 h-auto bg-white flex-col justify-between items-start md:items-center"
   >
     <div class="flex flex-row w-full h-[60px] justify-between items-center">
       <router-link to="/" @click="resetHeaderSearch">
