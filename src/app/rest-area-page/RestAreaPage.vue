@@ -78,23 +78,11 @@
       <h2 class="font-semibold text-left">Autres aires suggerées</h2>
       <el-scrollbar>
         <div class="flex flex-row pt-4 pb-8 gap-4">
-          <router-link
+          <RestAreaCard
             v-for="(suggestion, index) in suggestions"
             :key="index"
-            :to="{ name: 'rest-area', params: { id: suggestion.id } }"
-          >
-            <div class="min-w-[250px] w-full border rounded">
-              <el-image
-                class="flex flex-col w-full h-36 items-center justify-center"
-                fit="cover"
-                :src="suggestion?.img"
-              ></el-image>
-              <h4 class="text-left px-4 pt-2 pb-4">
-                {{ suggestion.aire }}
-                <el-tag size="small">{{ suggestion?.sens }}</el-tag>
-              </h4>
-            </div>
-          </router-link>
+            :restArea="suggestion"
+          ></RestAreaCard>
         </div>
       </el-scrollbar>
     </div>
@@ -109,6 +97,7 @@ import YesNoTag from "./../../common/components/items/YesNoTag.vue";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
 import { Check } from "@element-plus/icons-vue";
 import { useRestAreaSuggestions } from "../../common/composables/use-rest-area-suggestions";
+import RestAreaCard from "./../../common/components/items/RestAreaCard.vue";
 
 const route = useRoute();
 const { getById } = useRestAreaStore();

@@ -40,7 +40,23 @@
             </el-checkbox-group>
           </el-collapse-item>
 
-          <el-collapse-item title="Autoroutes" name="2">
+          <el-collapse-item title="Informations non renseignées" name="2">
+            <el-checkbox-group
+              v-model="filters.hasNotFields"
+              class="flex flex-wrap items-start justify-start"
+            >
+              <el-checkbox-button
+                v-for="(label, field, index) in OPTIONAL_REST_AREA_FIELDS_LABEL"
+                :key="index"
+                :value="field"
+                class="border-l rounded overflow-hidden"
+              >
+                {{ label }}
+              </el-checkbox-button>
+            </el-checkbox-group>
+          </el-collapse-item>
+
+          <el-collapse-item title="Autoroutes" name="3">
             <el-checkbox-group
               v-model="filters.autoroutes"
               class="flex flex-wrap items-start justify-start"
@@ -67,13 +83,16 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col items-center w-full gap-3 pt-6 px-8">
-      <RestAreaItem
-        v-for="(item, index) in showedRestAreas"
-        :key="index"
-        :rest-area="item"
-      ></RestAreaItem>
+    <div class="flex flex-col items-center w-full gap-3 px-8 py-8">
+      <div class="flex flex-row flex-wrap w-full gap-3">
+        <RestAreaCard
+          v-for="(item, index) in showedRestAreas"
+          :key="index"
+          :rest-area="item"
+        ></RestAreaCard>
+      </div>
       <el-pagination
+        class="mt-4"
         :page-size="DefaultValues.PAGE_SIZE"
         :pager-count="5"
         layout="prev, pager, next"
@@ -88,13 +107,13 @@
 import { onMounted, reactive, ref, watch } from "vue";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
 import RestArea from "../../common/types/RestArea";
-import RestAreaItem from "./../../common/components/items/RestAreaItem.vue";
 import { useSettingsStore } from "../../common/stores/use-settings.store";
 import { storeToRefs } from "pinia";
 import { DefaultValues } from "./../../common/config/default-values";
 import { RestAreaFilter } from "../../common/types/RestAreaFilter";
 import { OPTIONAL_REST_AREA_FIELDS_LABEL } from "../../common/config/enums/RestAreaFieldsLabel";
 import { ArrowRight, ArrowLeft } from "@element-plus/icons-vue";
+import RestAreaCard from "../../common/components/items/RestAreaCard.vue";
 
 const { restAreas, getByName, getAllAutoroutes } = useRestAreaStore();
 const { headerSearch } = storeToRefs(useSettingsStore());
@@ -104,6 +123,7 @@ const showedRestAreas = ref<RestArea[]>([]);
 const hideFilters = ref(true);
 const filters = reactive<RestAreaFilter>({
   hasFields: [],
+  hasNotFields: [],
   autoroutes: [],
 });
 
@@ -156,9 +176,15 @@ const applyFiltersAndHeaderQuery = (props?: {
 
   // FILTER REST AREA FIELDS
   for (let field of props.newFilters!.hasFields) {
-    console.log(field);
     allRestAreas.value = allRestAreas.value.filter(
       (a) => a[field] !== undefined
+    );
+  }
+
+  // FILTER REST AREA NOT FIELDS
+  for (let field of props.newFilters!.hasNotFields) {
+    allRestAreas.value = allRestAreas.value.filter(
+      (a) => a[field] === undefined
     );
   }
 
@@ -176,5 +202,6 @@ const resetFilters = () => {
   console.log(filters);
   filters.autoroutes = [];
   filters.hasFields = [];
+  filters.hasNotFields = [];
 };
 </script>
