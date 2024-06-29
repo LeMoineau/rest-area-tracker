@@ -2,7 +2,7 @@
   <div class="max-w-[--body-width] w-full px-4">
     <!-- Page Header -->
     <div
-      class="flex flex-row justify-between items-center border-b pb-4 flex-wrap gap-2"
+      class="flex flex-row justify-between items-center border-b pt-6 pb-4 flex-wrap gap-2"
     >
       <div class="flex flex-row items-center gap-2">
         <div class="flex flex-col justify-start items-start">
@@ -36,6 +36,12 @@
             {{ restArea?.localisation }}
           </el-descriptions-item>
           <el-descriptions-item
+            v-if="restArea?.equipements_aire_de_repos"
+            label="Equipement d'aire de repos"
+          >
+            <YesNoTag :value="restArea?.equipements_aire_de_repos"></YesNoTag>
+          </el-descriptions-item>
+          <el-descriptions-item
             v-if="restArea?.carburant"
             label="Fournisseur de Carburant"
           >
@@ -46,12 +52,6 @@
             label="Recharge Electrique"
           >
             <YesNoTag :value="restArea?.recharge_electrique"></YesNoTag>
-          </el-descriptions-item>
-          <el-descriptions-item
-            v-if="restArea?.equipement_aire_de_repos"
-            label="Recharge Electrique"
-          >
-            <YesNoTag :value="restArea?.equipement_aire_de_repos"></YesNoTag>
           </el-descriptions-item>
           <el-descriptions-item
             v-if="restArea?.restauration"
@@ -66,9 +66,9 @@
       </div>
       <div class="flex flex-row pt-6 gap-2">
         <div class="flex flex-col text-left w-full">
-          <h2 class="font-semibold pb-1">Commentaires / Autres :</h2>
+          <h2 class="font-semibold pb-1">Commentaires :</h2>
           <p class="h-full w-full border rounded p-4">
-            {{ comentaires }}
+            {{ restArea?.commentaires ?? "Aucun commentaire" }}
           </p>
         </div>
       </div>
@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import RestArea from "../../common/types/RestArea";
 import YesNoTag from "./../../common/components/items/YesNoTag.vue";
@@ -116,18 +116,6 @@ const { getById } = useRestAreaStore();
 const restArea = ref<RestArea>();
 
 const { suggestions } = useRestAreaSuggestions(restArea);
-
-const comentaires = computed(() => {
-  if (
-    !restArea.value ||
-    (!restArea.value.commentaires && !restArea.value.autres)
-  ) {
-    return "Aucun commentaire";
-  }
-  return `${restArea.value.commentaires ?? ""}${
-    restArea.value.commentaires && restArea.value.autres ? "\n" : ""
-  }${restArea.value.autres ?? ""}`;
-});
 
 onMounted(() => {
   const id = route.params.id;

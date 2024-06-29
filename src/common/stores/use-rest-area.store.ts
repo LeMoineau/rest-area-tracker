@@ -18,9 +18,14 @@ export const useRestAreaStore = defineStore("rest-area", () => {
     return restAreas.value.find((a) => a.id === id);
   };
 
+  const getAllAutoroutes = (): string[] => {
+    return [...new Set(restAreas.value.map((a) => a.autoroute))];
+  };
+
   return {
     restAreas,
     getByName,
     getById,
+    getAllAutoroutes,
   };
 });

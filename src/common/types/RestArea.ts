@@ -5,7 +5,7 @@ export default interface RestArea {
   aire: string;
   type: "Repos" | "Service";
   localisation: string;
-  equipement_aire_de_repos: "Oui{string}" | "Non{string}";
+  equipements_aire_de_repos: "Oui{string}" | "Non{string}";
   carburant?: string;
   recharge_electrique?: "Oui" | "Non";
   restauration?: string;

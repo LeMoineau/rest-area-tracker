@@ -17,6 +17,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --body-width: 1000px;
+  --filter-aside-max-width: 350px;
 }
 
 #app {
