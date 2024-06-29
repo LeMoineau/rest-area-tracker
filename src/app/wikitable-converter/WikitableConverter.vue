@@ -1,25 +1,42 @@
 <template>
-  <div class="flex flex-row justify-center items-center gap-4 w-full">
-    <textarea
-      v-model="html"
-      style="width: 400px; height: 300px"
-      class="border"
-    ></textarea>
-    <el-button @click="() => (convertedValue = JSON.stringify(convert(html)))">
-      convert
-    </el-button>
-    <textarea
-      v-model="convertedValue"
-      style="width: 400px; height: 300px"
-      class="border"
-    ></textarea>
+  <div class="flex flex-col items-center w-full">
+    <div class="flex flex-row justify-center items-center gap-4 w-full">
+      <textarea
+        v-model="html"
+        style="width: 400px; height: 300px"
+        class="border"
+      ></textarea>
+      <el-button
+        @click="() => (convertedValue = JSON.stringify(convert(html)))"
+      >
+        convert
+      </el-button>
+      <textarea
+        v-model="convertedValue"
+        style="width: 400px; height: 300px"
+        class="border"
+      ></textarea>
+    </div>
+    <el-button @click="convertAll">Convert all</el-button>
+    <el-button @click="getAllImages">Fetch all images</el-button>
+    <el-button @click="log">Log</el-button>
+    <div class="flex flex-row gap-2">
+      <el-input v-model="googleQuery"></el-input>
+      <el-button @click="fillUndefinedImageWithQuery"
+        >Fill undefined img area</el-button
+      >
+    </div>
   </div>
-  <el-button @click="convertAll">Convert all</el-button>
 </template>
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
+import restAreaWithImg from "./../../common/config/database/rest-area-db.json";
+import RestArea from "../../common/types/RestArea";
+
+const { restAreas } = useRestAreaStore();
 
 const html = ref("");
 const headers = ref([
@@ -34,6 +51,7 @@ const headers = ref([
   "commentaires",
 ]);
 const convertedValue = ref("");
+const googleQuery = ref("aire autoroute");
 
 const allURLS = [
   "/wiki/Autoroute_fran%C3%A7aise_A1_(Aires)",
@@ -155,6 +173,153 @@ const convertAll = () => {
       });
     index += 1;
   }, 500);
+};
+
+const sleep = async (ms: number): Promise<void> => {
+  return new Promise<void>((resolve, _) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+};
+
+const fillUndefinedImageWithQuery = async () => {
+  const restAreaWithImgList = [
+    ...(restAreaWithImg as RestArea[]).filter((a) => a.img !== undefined),
+  ];
+  const restAreaWithoutImg = (restAreaWithImg as RestArea[]).filter(
+    (a) => a.img === undefined
+  );
+  console.log("rest area without img: ", restAreaWithoutImg.length);
+  for (let area of restAreaWithoutImg) {
+    fetchImageUrlFromGoogle(`${googleQuery.value} ${area.aire}`, (imageUrl) => {
+      restAreaWithImgList.push({
+        ...area,
+        img: imageUrl.length > 0 ? imageUrl : undefined,
+      });
+      console.log("progress", restAreaWithImgList);
+    });
+    await sleep(250);
+  }
+  console.log(
+    "rest area without img after process: ",
+    restAreaWithImgList.filter((a) => a.img === undefined).length
+  );
+};
+
+const log = () => {
+  const restAreaWithImgList = restAreaWithImg as RestArea[];
+  console.log(
+    restAreas.length,
+    restAreaWithImgList.length,
+    restAreaWithImgList.filter((a) => a.img === undefined).length
+  );
+  let toTreat = [];
+  for (let area of restAreas) {
+    if (restAreaWithImgList.find((a) => a.id === area.id) === undefined) {
+      const sameNameArea = restAreaWithImgList.find(
+        (a) => a.aire === area.aire
+      );
+      if (sameNameArea !== undefined) {
+        restAreaWithImgList.push({
+          ...area,
+          img: sameNameArea.img,
+        });
+      } else {
+        toTreat.push(area);
+      }
+    }
+  }
+  console.log(restAreaWithImgList.length);
+  console.log(restAreaWithImgList);
+  console.log(toTreat.length);
+};
+
+const getAllImages = () => {
+  let alreadyTreatedAreas: any[] = [
+    ...(restAreaWithImg as RestArea[]).filter(
+      (a) => a.img !== undefined && a.img.length > 0
+    ),
+  ];
+  console.log(
+    alreadyTreatedAreas.length,
+    (restAreaWithImg as RestArea[]).length
+  );
+  console.log(alreadyTreatedAreas);
+  let index = 0;
+  const intervalId = setInterval(() => {
+    while (
+      index < restAreas.length &&
+      alreadyTreatedAreas.find(
+        (a) => a.id === restAreas[index].id || a.aire === restAreas[index].aire
+      )
+    ) {
+      const sameNameButIdDifferent = alreadyTreatedAreas.find(
+        (a) => a.id !== restAreas[index].id && a.aire === restAreas[index].aire
+      );
+      if (
+        sameNameButIdDifferent &&
+        !alreadyTreatedAreas.find((a) => a.id === sameNameButIdDifferent.id)
+      ) {
+        console.log("added duplicate name", {
+          ...sameNameButIdDifferent,
+          id: restAreas[index],
+        });
+        alreadyTreatedAreas.push({
+          ...sameNameButIdDifferent,
+          id: restAreas[index],
+        });
+      }
+      index += 1;
+    }
+    if (index >= restAreas.length) {
+      console.log("fetching finish!");
+      clearInterval(intervalId);
+      return;
+    }
+    const target = restAreas[index];
+    console.log(`fetching image for `, target);
+    fetchImageUrlFromGoogle(`aire de ${target.aire}`, (imageUrl) => {
+      alreadyTreatedAreas.push({
+        ...target,
+        img: imageUrl.length > 0 ? imageUrl : undefined,
+      });
+      console.log("progress", alreadyTreatedAreas);
+    });
+    index += 1;
+  }, 250);
+};
+
+const fetchImageUrlFromGoogle = (
+  googleQuery: string,
+  callback: (url: string) => void
+) => {
+  fetch(
+    //aire+autoroute+NOM pour ceux qui ont pas encore d'image
+    `https://www.google.com/search?q=aire+de+${googleQuery.replace(/ /g, "+")}`
+  )
+    .then((res) => res.text())
+    .then((res) => {
+      callback(getImageUrlFromGoogleImageSearch(res));
+    });
+};
+
+const getImageUrlFromGoogleImageSearch = (html: string): string => {
+  const convertContainer = document.createElement("div");
+  convertContainer.innerHTML = html;
+  const scripts = convertContainer.querySelectorAll("script[nonce]");
+  let url = "";
+  scripts.forEach((s) => {
+    const script = s as HTMLScriptElement;
+    if (
+      script.textContent!.includes("base64") &&
+      script.textContent!.includes("_setImagesSrc") &&
+      script.textContent!.includes("dimg_1") &&
+      url.length <= 0
+    )
+      url = script.textContent!.split("'")[1].replace(/\\x3d/g, "");
+  });
+  return url;
 };
 
 const convert = (html: string) => {

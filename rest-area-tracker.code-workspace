@@ -6,9 +6,7 @@
   ],
   "settings": {
     "files.exclude": {
-      "maya-symbols-module": true,
-      "maya-symbols-service": true,
-      "**/node_modules": true,
+      "**/node_modules": false,
       "**/dist": false,
       "**/.git": true,
       "**/.svn": true,
@@ -16,6 +14,12 @@
       "**/CVS": true,
       "**/.DS_Store": true,
       "**/Thumbs.db": true
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/node_modules/**": true,
+      "**/node_modules": true,
+      "**/database/**": true
     },
     "editor.rulers": [
       {
@@ -29,6 +33,7 @@
     ],
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnPaste": true
+    "editor.formatOnPaste": true,
+    "typescript.tsserver.log": "verbose"
   }
 }

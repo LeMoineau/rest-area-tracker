@@ -12,4 +12,5 @@ export default interface RestArea {
   hotellerie?: string;
   autres?: string;
   commentaires?: string;
+  img?: string;
 }
