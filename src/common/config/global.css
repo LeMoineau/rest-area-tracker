@@ -16,7 +16,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  --header-height: var(--header-height-base);
+  --header-height-base: 61px;
+  --header-extra-height-small-device: 50px;
   --body-width: 1000px;
+  --main-body-height: calc(100vh - var(--header-height) - 1px);
   --filter-aside-max-width: 350px;
   --rest-area-card-width: 250px;
 }
@@ -29,6 +33,14 @@
 body {
   margin: 0;
   padding: 0;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: calc(
+      var(--header-height-base) + var(--header-extra-height-small-device)
+    );
+  }
 }
 
 @media (prefers-color-scheme: light) {

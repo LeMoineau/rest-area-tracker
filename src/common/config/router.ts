@@ -3,6 +3,8 @@ import RestAreaList from "./../../app/rest-area-list/RestAreaList.vue";
 import WikitableConverter from "./../../app/wikitable-converter/WikitableConverter.vue";
 import GlobalLayout from "./../../app/GlobalLayout.vue";
 import RestAreaPage from "./../../app/rest-area-page/RestAreaPage.vue";
+import RegisterPage from "./../../app/register/RegisterPage.vue";
+import LoginPage from "../../app/login/LoginPage.vue";
 
 const routes = [
   {
@@ -23,6 +25,16 @@ const routes = [
         path: "/rest-area/:id",
         name: "rest-area",
         component: RestAreaPage,
+      },
+      {
+        path: "/register",
+        name: "register",
+        component: RegisterPage,
+      },
+      {
+        path: "/login",
+        name: "login",
+        component: LoginPage,
       },
     ],
   },
