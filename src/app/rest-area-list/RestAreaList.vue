@@ -1,90 +1,63 @@
 <template>
   <div class="flex flex-row w-full">
-    <div
-      :class="`${hideFilters ? 'w-0' : 'w-full'}`"
-      class="absolute bg-white h-full sm:relative border-r sm:h-auto sm:w-full sm:max-w-[--filter-aside-max-width] pb-8"
-    >
-      <el-button
-        style="
-          --el-border-radius-base: 0 50px 50px 0px;
-          padding-left: 12px;
-          padding-right: 12px;
-        "
-        :class="`${hideFilters ? 'opacity-100' : 'opacity-0'}`"
-        class="sm:opacity-0 absolute right-0 top-4 translate-x-full rounded-e-full"
-        :icon="hideFilters ? ArrowRight : ArrowLeft"
-        size="large"
-        @click="hideFilters = !hideFilters"
-      ></el-button>
-
-      <div
-        :class="`${hideFilters ? 'hidden' : ''}`"
-        class="sm:flex flex-col text-left justify-start items-start w-full overflow-hidden p-4"
-      >
-        <h3 class="font-semibold">Filtres</h3>
-        <p class="text-sm opacity-[0.8]">{{ allRestAreas.length }} résultats</p>
-        <el-collapse class="w-full mt-2">
-          <el-collapse-item title="Informations renseignées" name="1">
-            <el-checkbox-group
-              v-model="filters.hasFields"
-              class="flex flex-wrap items-start justify-start"
-            >
-              <el-checkbox-button
-                v-for="(label, field, index) in OPTIONAL_REST_AREA_FIELDS_LABEL"
-                :key="index"
-                :value="field"
-                class="border-l rounded overflow-hidden"
-              >
-                {{ label }}
-              </el-checkbox-button>
-            </el-checkbox-group>
-          </el-collapse-item>
-
-          <el-collapse-item title="Informations non renseignées" name="2">
-            <el-checkbox-group
-              v-model="filters.hasNotFields"
-              class="flex flex-wrap items-start justify-start"
-            >
-              <el-checkbox-button
-                v-for="(label, field, index) in OPTIONAL_REST_AREA_FIELDS_LABEL"
-                :key="index"
-                :value="field"
-                class="border-l rounded overflow-hidden"
-              >
-                {{ label }}
-              </el-checkbox-button>
-            </el-checkbox-group>
-          </el-collapse-item>
-
-          <el-collapse-item title="Autoroutes" name="3">
-            <el-checkbox-group
-              v-model="filters.autoroutes"
-              class="flex flex-wrap items-start justify-start"
-            >
-              <el-checkbox-button
-                v-for="(label, index) in getAllAutoroutes()"
-                :key="index"
-                :value="label"
-                class="border-l rounded overflow-hidden"
-              >
-                {{ label }}
-              </el-checkbox-button>
-            </el-checkbox-group>
-          </el-collapse-item>
-        </el-collapse>
-        <div class="flex flex-row mt-4">
-          <el-button @click="resetFilters">Réinitialiser les filtres</el-button>
-          <el-button
-            class="sm:opacity-0"
-            type="primary"
-            @click="hideFilters = !hideFilters"
-            >Fermer</el-button
+    <CustomAside v-model:hide-aside="hideFilters">
+      <h3 class="font-semibold">Filtres</h3>
+      <p class="text-sm opacity-[0.8]">{{ allRestAreas.length }} résultats</p>
+      <el-collapse class="w-full mt-2">
+        <el-collapse-item title="Informations renseignées" name="1">
+          <el-checkbox-group
+            v-model="filters.hasFields"
+            class="flex flex-wrap items-start justify-start"
           >
-        </div>
-      </div>
-    </div>
+            <el-checkbox-button
+              v-for="(label, field, index) in OPTIONAL_REST_AREA_FIELDS_LABEL"
+              :key="index"
+              :value="field"
+              class="border-l rounded overflow-hidden"
+            >
+              {{ label }}
+            </el-checkbox-button>
+          </el-checkbox-group>
+        </el-collapse-item>
+
+        <el-collapse-item title="Informations non renseignées" name="2">
+          <el-checkbox-group
+            v-model="filters.hasNotFields"
+            class="flex flex-wrap items-start justify-start"
+          >
+            <el-checkbox-button
+              v-for="(label, field, index) in OPTIONAL_REST_AREA_FIELDS_LABEL"
+              :key="index"
+              :value="field"
+              class="border-l rounded overflow-hidden"
+            >
+              {{ label }}
+            </el-checkbox-button>
+          </el-checkbox-group>
+        </el-collapse-item>
+
+        <el-collapse-item title="Autoroutes" name="3">
+          <el-checkbox-group
+            v-model="filters.autoroutes"
+            class="flex flex-wrap items-start justify-start"
+          >
+            <el-checkbox-button
+              v-for="(label, index) in getAllAutoroutes()"
+              :key="index"
+              :value="label"
+              class="border-l rounded overflow-hidden"
+            >
+              {{ label }}
+            </el-checkbox-button>
+          </el-checkbox-group>
+        </el-collapse-item>
+      </el-collapse>
+      <template #actions-prepend>
+        <el-button @click="resetFilters">Réinitialiser les filtres</el-button>
+      </template>
+    </CustomAside>
     <div class="flex flex-col items-center w-full gap-3 px-8 py-8">
-      <div class="flex flex-row flex-wrap w-full gap-3">
+      <div class="flex flex-row justify-center flex-wrap w-full gap-5">
         <RestAreaCard
           v-for="(item, index) in showedRestAreas"
           :key="index"
@@ -112,8 +85,8 @@ import { storeToRefs } from "pinia";
 import { DefaultValues } from "./../../common/config/default-values";
 import { RestAreaFilter } from "../../common/types/RestAreaFilter";
 import { OPTIONAL_REST_AREA_FIELDS_LABEL } from "../../common/config/enums/RestAreaFieldsLabel";
-import { ArrowRight, ArrowLeft } from "@element-plus/icons-vue";
 import RestAreaCard from "../../common/components/items/RestAreaCard.vue";
+import CustomAside from "../../common/components/navigation/CustomAside.vue";
 
 const { restAreas, getByName, getAllAutoroutes } = useRestAreaStore();
 const { headerSearch } = storeToRefs(useSettingsStore());

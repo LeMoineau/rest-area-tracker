@@ -5,6 +5,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from "firebase/auth";
 
 export const useUserAuth = () => {
@@ -54,9 +55,23 @@ export const useUserAuth = () => {
       });
   };
 
+  const logout = (
+    onSuccess?: () => void,
+    onFailed?: (errorCode: string) => void
+  ) => {
+    signOut(auth)
+      .then(() => {
+        onSuccess && onSuccess();
+      })
+      .catch((err) => {
+        onFailed && onFailed(err.code);
+      });
+  };
+
   return {
     login,
     register,
     signInWithGoogle,
+    logout,
   };
 };

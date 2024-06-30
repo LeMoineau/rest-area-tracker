@@ -5,6 +5,9 @@ import GlobalLayout from "./../../app/GlobalLayout.vue";
 import RestAreaPage from "./../../app/rest-area-page/RestAreaPage.vue";
 import RegisterPage from "./../../app/register/RegisterPage.vue";
 import LoginPage from "../../app/login/LoginPage.vue";
+import ProfileLayout from "../../app/profile/ProfileLayout.vue";
+import ProfileHomePage from "../../app/profile/home/ProfileHomePage.vue";
+import ProfileSettingsPage from "../../app/profile/settings/ProfileSettingsPage.vue";
 
 const routes = [
   {
@@ -35,6 +38,21 @@ const routes = [
         path: "/login",
         name: "login",
         component: LoginPage,
+      },
+      {
+        path: "/profile",
+        name: "profile",
+        component: ProfileLayout,
+        children: [
+          {
+            path: "",
+            component: ProfileHomePage,
+          },
+          {
+            path: "settings",
+            component: ProfileSettingsPage,
+          },
+        ],
       },
     ],
   },

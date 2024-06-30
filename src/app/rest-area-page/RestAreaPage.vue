@@ -13,6 +13,9 @@
           </div>
         </div>
       </div>
+      <el-button size="large" type="primary" disabled>
+        Réclamer le badge <el-icon class="el-icon--right"><Medal /></el-icon
+      ></el-button>
       <el-button size="large">
         Déjà visitée <el-icon class="el-icon--right"><Check /></el-icon
       ></el-button>
@@ -98,7 +101,7 @@ import { useRoute } from "vue-router";
 import RestArea from "../../common/types/RestArea";
 import YesNoTag from "./../../common/components/items/YesNoTag.vue";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
-import { Check } from "@element-plus/icons-vue";
+import { Check, Medal } from "@element-plus/icons-vue";
 import { useRestAreaSuggestions } from "../../common/composables/use-rest-area-suggestions";
 import RestAreaCard from "./../../common/components/items/RestAreaCard.vue";
 

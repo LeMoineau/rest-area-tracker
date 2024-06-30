@@ -28,7 +28,6 @@ const router = useRouter();
 const { login, signInWithGoogle } = useUserAuth();
 
 const handleLogin = () => {
-  console.log(email.value, password.value);
   login(
     email.value,
     password.value,
