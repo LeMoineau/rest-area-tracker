@@ -34,7 +34,9 @@
           <template #prepend-icon><Setting></Setting></template> Paramètres
         </CustomLink>
         <div class="w-full border-t my-2 pb-1"></div>
-        <el-button type="danger" @click="logout"> Se déconnecter </el-button>
+        <el-button type="danger" @click="handleLogout">
+          Se déconnecter
+        </el-button>
       </div>
     </div>
   </el-popover>
@@ -46,11 +48,18 @@ import { useUserStore } from "../../stores/use-user.store";
 import { useUserAuth } from "../../composables/use-user-auth";
 import { computed } from "vue";
 import CustomLink from "../navigation/CustomLink.vue";
+import { useRouter } from "vue-router";
 
 const { userIsLoggedIn, getUser } = useUserStore();
 const { logout } = useUserAuth();
+const router = useRouter();
 
 const userName = computed(() =>
   userIsLoggedIn() ? getUser()?.displayName ?? getUser()?.email : "Invité"
 );
+
+const handleLogout = () => {
+  logout();
+  router.push("/login");
+};
 </script>

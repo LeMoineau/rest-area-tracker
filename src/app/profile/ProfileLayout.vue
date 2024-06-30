@@ -15,10 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
 import CustomAside from "../../common/components/navigation/CustomAside.vue";
 import CustomLink from "../../common/components/navigation/CustomLink.vue";
 import { User, Setting } from "@element-plus/icons-vue";
-
-const route = useRoute();
 </script>

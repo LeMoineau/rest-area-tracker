@@ -6,7 +6,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
+import { ProfileChanges } from "./../types/user/ProfileChanges";
 
 export const useUserAuth = () => {
   const auth = getAuth();
@@ -68,10 +70,18 @@ export const useUserAuth = () => {
       });
   };
 
+  const updateUserProfile = async (changes: ProfileChanges) => {
+    const user = auth.currentUser;
+    if (!user) return;
+    await updateProfile(user, changes);
+    return changes;
+  };
+
   return {
     login,
     register,
     signInWithGoogle,
     logout,
+    updateUserProfile,
   };
 };
