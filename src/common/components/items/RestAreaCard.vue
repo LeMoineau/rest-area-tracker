@@ -1,6 +1,8 @@
 <template>
   <router-link :to="{ name: 'rest-area', params: { id: restArea.id } }">
-    <div class="w-[--rest-area-card-width] border rounded overflow-hidden">
+    <div
+      class="w-[--rest-area-card-width] border rounded overflow-hidden bg-white text-black"
+    >
       <el-image
         class="flex flex-col w-full h-36 items-center justify-center"
         fit="cover"

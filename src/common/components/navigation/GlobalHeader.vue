@@ -48,10 +48,10 @@
           </p>
           <el-button type="danger" @click="logout" v-if="userIsLoggedIn()">
             Se déconnecter </el-button
-          ><router-link to="login" v-if="!userIsLoggedIn()">
+          ><router-link to="/login" v-if="!userIsLoggedIn()">
             <el-button> Se connecter </el-button>
           </router-link>
-          <router-link to="register" v-if="!userIsLoggedIn()">
+          <router-link to="/register" v-if="!userIsLoggedIn()">
             <el-button type="success"> Créer un compte </el-button>
           </router-link>
         </div>
