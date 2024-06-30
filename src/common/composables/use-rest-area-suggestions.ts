@@ -1,6 +1,6 @@
 import { Ref, ref, watch } from "vue";
 import { useRestAreaStore } from "../stores/use-rest-area.store";
-import RestArea from "../types/RestArea";
+import RestArea from "../types/rest-area/RestArea";
 
 export const useRestAreaSuggestions = (
   restArea: Ref<RestArea | undefined>,

@@ -34,7 +34,7 @@ import { ref, watch } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
 import restAreaWithImg from "./../../common/config/database/rest-area-db.json";
-import RestArea from "../../common/types/RestArea";
+import RestArea from "../../common/types/rest-area/RestArea";
 
 const { restAreas } = useRestAreaStore();
 

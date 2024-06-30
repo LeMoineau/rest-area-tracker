@@ -79,11 +79,11 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref, watch } from "vue";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
-import RestArea from "../../common/types/RestArea";
+import RestArea from "../../common/types/rest-area/RestArea";
 import { useSettingsStore } from "../../common/stores/use-settings.store";
 import { storeToRefs } from "pinia";
 import { DefaultValues } from "./../../common/config/default-values";
-import { RestAreaFilter } from "../../common/types/RestAreaFilter";
+import { RestAreaFilter } from "../../common/types/rest-area/RestAreaFilter";
 import { OPTIONAL_REST_AREA_FIELDS_LABEL } from "../../common/config/enums/RestAreaFieldsLabel";
 import RestAreaCard from "../../common/components/items/RestAreaCard.vue";
 import CustomAside from "../../common/components/navigation/CustomAside.vue";

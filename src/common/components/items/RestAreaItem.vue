@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import RestArea from "../../types/RestArea";
+import RestArea from "../../types/rest-area/RestArea";
 
 defineProps<{ restArea: RestArea }>();
 </script>

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import RestArea from "../types/RestArea";
+import RestArea from "../types/rest-area/RestArea";
 import { ref } from "vue";
 import restAreaJson from "./../config/database/rest-area-db.json";
 

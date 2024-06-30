@@ -12,7 +12,6 @@ export const useUserStore = defineStore("user", () => {
 
   const setUser = (u: User) => {
     user.value = u;
-    console.log(user.value);
     userLoggedIn.value = true;
   };
 

@@ -1,7 +1,7 @@
 import {
   OptionalRestAreaField,
   RestAreaField,
-} from "../../types/RestAreaField";
+} from "../../types/rest-area/RestAreaField";
 
 export const OPTIONAL_REST_AREA_FIELDS_LABEL: {
   [field in OptionalRestAreaField]: string;

@@ -20,19 +20,29 @@ import { useUserAuth } from "../../common/composables/use-user-auth";
 import { ErrorUtils } from "../../common/utils/error-utils";
 import AuthAd from "../../common/components/auth/AuthAd.vue";
 import AuthForm from "../../common/components/auth/AuthForm.vue";
+import { useUserData } from "../../common/composables/use-user-data";
+import { useUserDataStore } from "../../common/stores/use-user-data.store";
 
 const email = ref("");
 const password = ref("");
 
 const router = useRouter();
 const { login, signInWithGoogle } = useUserAuth();
+const { fetchUserData, createNewUserData } = useUserData();
+const { setCurrentUserData } = useUserDataStore();
 
 const handleLogin = () => {
   login(
     email.value,
     password.value,
-    () => {
+    async (userCred) => {
       router.push("/");
+      let userData = await fetchUserData(userCred.user.uid);
+      if (!userData) {
+        console.error(`no user data found for user ${userCred.user.uid}`);
+        userData = await createNewUserData(userCred.user);
+      }
+      setCurrentUserData(userData);
     },
     (errorCode) => ErrorUtils.generateErrorFromAuthErrorCode(errorCode)
   );
@@ -40,8 +50,13 @@ const handleLogin = () => {
 
 const handleSignInWithGoogle = () => {
   signInWithGoogle(
-    () => {
+    async (userCred) => {
       router.push("/");
+      let userData = await fetchUserData(userCred.user.uid);
+      if (!userData) {
+        userData = await createNewUserData(userCred.user);
+      }
+      setCurrentUserData(userData);
     },
     (errorCode) => ErrorUtils.generateErrorFromAuthErrorCode(errorCode)
   );

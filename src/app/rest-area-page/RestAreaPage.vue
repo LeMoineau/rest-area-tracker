@@ -98,7 +98,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import RestArea from "../../common/types/RestArea";
+import RestArea from "../../common/types/rest-area/RestArea";
 import YesNoTag from "./../../common/components/items/YesNoTag.vue";
 import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
 import { Check, Medal } from "@element-plus/icons-vue";
