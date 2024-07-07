@@ -27,7 +27,6 @@ onMounted(() => {
     }
     setUser(user);
     fetchUserBadges();
-    console.log("user changed!", user);
   });
 });
 </script>

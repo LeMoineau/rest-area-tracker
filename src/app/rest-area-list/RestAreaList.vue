@@ -122,7 +122,6 @@ watch(headerSearch, (newSearch) => {
 });
 
 watch(filters, (newFilters) => {
-  console.log(newFilters);
   applyFiltersAndHeaderQuery({ newFilters });
 });
 
@@ -172,7 +171,6 @@ const applyFiltersAndHeaderQuery = (props?: {
 };
 
 const resetFilters = () => {
-  console.log(filters);
   filters.autoroutes = [];
   filters.hasFields = [];
   filters.hasNotFields = [];

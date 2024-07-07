@@ -20,14 +20,12 @@ const useBadges = () => {
   const getByOwnerId = async (ownerId: string): Promise<Badge[]> => {
     const q = query(badgesCollection, where("ownerId", "==", ownerId));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot.docs.map((d) => d.data()));
     return querySnapshot.docs.map((d) => d.data()) as Badge[];
   };
 
   const getByRestAreaId = async (restAreaId: string): Promise<Badge[]> => {
     const q = query(badgesCollection, where("restAreaId", "==", restAreaId));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot.docs.map((d) => d.data()));
     return querySnapshot.docs.map((d) => d.data()) as Badge[];
   };
 
@@ -37,11 +35,10 @@ const useBadges = () => {
       ownerId,
       restAreaId,
     };
-    const res = await setDoc(
+    await setDoc(
       doc(badgesCollection, _generateBadgeUid(ownerId, restAreaId)),
       badge
     );
-    console.log("add", res);
     return badge;
   };
 

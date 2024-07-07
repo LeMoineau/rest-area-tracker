@@ -69,7 +69,7 @@
             {{ restArea?.autres }}
           </el-descriptions-item>
           <el-descriptions-item label="Nombre de visiteurs">
-            {{ visitorBadges?.length }}
+            {{ visitorBadges ? visitorBadges.length : "0" }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -77,7 +77,11 @@
         <div class="flex flex-col text-left w-full">
           <h2 class="font-semibold pb-1">Commentaires</h2>
           <p class="h-full w-full border rounded p-4">
-            {{ restArea?.commentaires ?? "Aucun commentaire" }}
+            {{
+              restArea?.commentaires ??
+              restArea?.commentaire ??
+              "Aucun commentaire"
+            }}
           </p>
         </div>
       </div>

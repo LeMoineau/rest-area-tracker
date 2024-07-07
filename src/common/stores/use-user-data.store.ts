@@ -14,7 +14,6 @@ export const useUserDataStore = defineStore("user-data", () => {
     if (!isConnected()) return;
     if (userBadges.value.length <= 0 || (props && props.forceFetch)) {
       const badges = await getByOwnerId(currentUser()!.uid);
-      console.log(badges);
       userBadges.value.push(...badges);
     }
   };
@@ -26,7 +25,6 @@ export const useUserDataStore = defineStore("user-data", () => {
   };
 
   const alreadyHasBadge = (restAreaId: string): boolean => {
-    console.log(restAreaId, userBadges.value);
     return (
       userBadges.value.find((b) => b.restAreaId === restAreaId) !== undefined
     );

@@ -72,7 +72,6 @@ watch(search, (newSearch) => {
 });
 
 const selectSearch = (selected: { value: string; id: string }) => {
-  console.log(selected);
   router.push({
     name: "rest-area",
     params: { id: selected.id },
