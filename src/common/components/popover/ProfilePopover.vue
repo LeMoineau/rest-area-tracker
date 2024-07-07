@@ -7,7 +7,7 @@
         </el-text>
         <el-avatar
           :icon="UserFilled"
-          :src="getUser()?.photoURL ?? undefined"
+          :src="user?.photoURL ?? undefined"
         ></el-avatar>
       </div>
     </template>
@@ -17,7 +17,7 @@
       </p>
       <div
         class="flex flex-col justify-start items-start gap-2"
-        v-if="!userIsLoggedIn()"
+        v-if="!isConnected"
       >
         <router-link to="/login">
           <el-button> Se connecter </el-button>
@@ -49,13 +49,14 @@ import { useUserAuth } from "../../composables/use-user-auth";
 import { computed } from "vue";
 import CustomLink from "../navigation/CustomLink.vue";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 
-const { userIsLoggedIn, getUser } = useUserStore();
+const { user, isConnected } = storeToRefs(useUserStore());
 const { logout } = useUserAuth();
 const router = useRouter();
 
 const userName = computed(() =>
-  userIsLoggedIn() ? getUser()?.displayName ?? getUser()?.email : "Invité"
+  isConnected.value ? user.value?.displayName ?? user.value?.email : "Invité"
 );
 
 const handleLogout = () => {

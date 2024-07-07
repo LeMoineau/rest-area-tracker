@@ -4,29 +4,38 @@
       <el-avatar
         size="large"
         :icon="UserFilled"
-        :src="getUser()?.photoURL ?? undefined"
+        :src="user?.photoURL ?? undefined"
       ></el-avatar>
       <div class="flex flex-col justify-center items-start">
         <h1 class="font-semibold text-xl">
-          {{ getUser()?.displayName ?? getUser()?.email }}
+          {{ user?.displayName ?? user?.email }}
         </h1>
-        <p v-if="getUser()?.displayName" class="opacity-70 text-sm">
-          {{ getUser()?.email }}
+        <p v-if="user?.displayName" class="opacity-70 text-sm">
+          {{ user?.email }}
         </p>
       </div>
     </div>
     <!-- Badges -->
     <div class="flex flex-col w-full py-6">
-      <h2 class="text-left font-semibold">Badges</h2>
+      <h2 class="text-left font-semibold mb-3">Badges</h2>
+      <div class="flex flex-row flex-wrap gap-3">
+        <BadgeItem
+          v-for="(badge, index) in userBadges"
+          :key="index"
+          :badge="badge"
+        ></BadgeItem>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { useUserDataStore } from "../../../common/stores/use-user-data.store";
 import { useUserStore } from "../../../common/stores/use-user.store";
 import { UserFilled } from "@element-plus/icons-vue";
+import BadgeItem from "./../../../common/components/items/BadgeItem.vue";
 
-const { getUser } = useUserStore();
-const { getCurrentUserData } = useUserDataStore();
+const { user } = storeToRefs(useUserStore());
+const { userBadges } = storeToRefs(useUserDataStore());
 </script>

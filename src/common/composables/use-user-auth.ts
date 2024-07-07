@@ -78,6 +78,8 @@ export const useUserAuth = () => {
   };
 
   return {
+    currentUser: () => auth.currentUser,
+    isConnected: () => auth.currentUser !== null,
     login,
     register,
     signInWithGoogle,

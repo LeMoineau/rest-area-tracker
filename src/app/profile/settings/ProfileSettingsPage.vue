@@ -12,7 +12,7 @@
               :src="
                 newPhotoURL.length > 0
                   ? newPhotoURL
-                  : getUser()?.photoURL ?? undefined
+                  : user?.photoURL ?? undefined
               "
             ></el-avatar>
             <div
@@ -79,18 +79,18 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useUserDataStore } from "../../../common/stores/use-user-data.store";
 import { useUserStore } from "../../../common/stores/use-user.store";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { ElMessageBox } from "element-plus";
 import { useUserAuth } from "../../../common/composables/use-user-auth";
 import { ProfileChanges } from "../../../common/types/user/ProfileChanges";
+import { storeToRefs } from "pinia";
 
-const { getUser, setUser } = useUserStore();
-const { getCurrentUserData } = useUserDataStore();
+const { user } = storeToRefs(useUserStore());
+const { setUser } = useUserStore();
 const { updateUserProfile } = useUserAuth();
 
-const newName = ref(getUser()?.displayName ?? "");
+const newName = ref(user.value?.displayName ?? "");
 const newPhotoURL = ref("");
 const currentPassword = ref("");
 const newPassword = ref("");
@@ -99,7 +99,7 @@ const confirmationPassword = ref("");
 const canApplyChanges = computed(
   () =>
     newPhotoURL.value.length > 0 ||
-    newName.value !== getUser()?.displayName ||
+    newName.value !== user.value?.displayName ||
     (currentPassword.value.length > 0 &&
       newPassword.value.length > 0 &&
       confirmationPassword.value === newPassword.value)
@@ -120,7 +120,7 @@ const openPhotoURLMessageBox = () => {
 
 const handleUserChanges = async () => {
   let profileChanges: ProfileChanges = {};
-  if (newName.value !== getUser()?.displayName) {
+  if (newName.value !== user.value?.displayName) {
     profileChanges.displayName = newName.value;
   }
   if (newPhotoURL.value.length > 0) {
@@ -128,13 +128,13 @@ const handleUserChanges = async () => {
   }
   const changes = await updateUserProfile(profileChanges);
   setUser({
-    ...getUser()!,
+    ...user.value!,
     ...changes,
   });
 };
 
 const resetChanges = () => {
-  newName.value = getUser()?.displayName ?? "";
+  newName.value = user.value?.displayName ?? "";
   newPhotoURL.value = "";
   currentPassword.value = "";
   newPassword.value = "";

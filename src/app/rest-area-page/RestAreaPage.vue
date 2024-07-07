@@ -13,12 +13,20 @@
           </div>
         </div>
       </div>
-      <el-button size="large" type="primary" disabled>
-        Réclamer le badge <el-icon class="el-icon--right"><Medal /></el-icon
-      ></el-button>
-      <el-button size="large">
-        Déjà visitée <el-icon class="el-icon--right"><Check /></el-icon
-      ></el-button>
+      <div v-if="restArea">
+        <el-button
+          v-if="!alreadyHasBadge(restArea.id)"
+          size="large"
+          type="primary"
+          :disabled="!isConnected()"
+          @click="addBadge(restArea.id)"
+        >
+          Réclamer le badge <el-icon class="el-icon--right"><Medal /></el-icon
+        ></el-button>
+        <el-button v-else size="large">
+          Déjà visitée <el-icon class="el-icon--right"><Check /></el-icon
+        ></el-button>
+      </div>
     </div>
     <!-- Page Core -->
     <div class="py-4 w-full">
@@ -59,6 +67,9 @@
           </el-descriptions-item>
           <el-descriptions-item v-if="restArea?.autres" label="Autres">
             {{ restArea?.autres }}
+          </el-descriptions-item>
+          <el-descriptions-item label="Nombre de visiteurs">
+            {{ visitorBadges?.length }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -104,20 +115,29 @@ import { useRestAreaStore } from "../../common/stores/use-rest-area.store";
 import { Check, Medal } from "@element-plus/icons-vue";
 import { useRestAreaSuggestions } from "../../common/composables/use-rest-area-suggestions";
 import RestAreaCard from "./../../common/components/items/RestAreaCard.vue";
+import { useUserAuth } from "../../common/composables/use-user-auth";
+import { useUserDataStore } from "../../common/stores/use-user-data.store";
+import useBadges from "../../common/composables/use-badges";
+import Badge from "../../common/types/badges/Badge";
 
 const route = useRoute();
 const { getById } = useRestAreaStore();
+const { addBadge, alreadyHasBadge } = useUserDataStore();
 
 const restArea = ref<RestArea>();
+const visitorBadges = ref<Badge[]>();
 
 const { suggestions } = useRestAreaSuggestions(restArea);
+const { isConnected } = useUserAuth();
+const { getByRestAreaId } = useBadges();
 
-onMounted(() => {
+onMounted(async () => {
   const id = route.params.id;
   if (typeof id !== "string") return;
   restArea.value = getById(id);
   if (restArea.value === undefined) {
     throw new Error(`no rest area found for id "${id}"`);
   }
+  visitorBadges.value = await getByRestAreaId(restArea.value.id);
 });
 </script>

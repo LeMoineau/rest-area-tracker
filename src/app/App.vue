@@ -14,8 +14,10 @@ import { onMounted } from "vue";
 import GlobalHeader from "../common/components/navigation/GlobalHeader.vue";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useUserStore } from "../common/stores/use-user.store";
+import { useUserDataStore } from "../common/stores/use-user-data.store";
 
 const { setUser, resetUser } = useUserStore();
+const { fetchUserBadges } = useUserDataStore();
 
 onMounted(() => {
   onAuthStateChanged(getAuth(), (user) => {
@@ -24,6 +26,7 @@ onMounted(() => {
       return;
     }
     setUser(user);
+    fetchUserBadges();
     console.log("user changed!", user);
   });
 });

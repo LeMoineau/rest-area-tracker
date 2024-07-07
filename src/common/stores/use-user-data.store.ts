@@ -1,21 +1,41 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { UserData } from "../types/user/UserData";
+import Badge from "../types/badges/Badge";
+import useBadges from "../composables/use-badges";
+import { useUserAuth } from "../composables/use-user-auth";
 
 export const useUserDataStore = defineStore("user-data", () => {
-  const userData = ref<UserData>();
+  const userBadges = ref<Badge[]>([]);
 
-  const setCurrentUserData = (uData: UserData) => {
-    userData.value = uData;
+  const { isConnected, currentUser } = useUserAuth();
+  const { getByOwnerId, add } = useBadges();
+
+  const fetchUserBadges = async (props?: { forceFetch?: boolean }) => {
+    if (!isConnected()) return;
+    if (userBadges.value.length <= 0 || (props && props.forceFetch)) {
+      const badges = await getByOwnerId(currentUser()!.uid);
+      console.log(badges);
+      userBadges.value.push(...badges);
+    }
   };
 
-  const resetCurrentUserData = () => {
-    userData.value = undefined;
+  const addBadge = async (restAreaId: string) => {
+    if (!isConnected()) return;
+    const badge = await add(currentUser()!.uid, restAreaId);
+    userBadges.value.push(badge);
+  };
+
+  const alreadyHasBadge = (restAreaId: string): boolean => {
+    console.log(restAreaId, userBadges.value);
+    return (
+      userBadges.value.find((b) => b.restAreaId === restAreaId) !== undefined
+    );
   };
 
   return {
-    getCurrentUserData: () => userData.value,
-    setCurrentUserData,
-    resetCurrentUserData,
+    userBadges,
+    fetchUserBadges,
+    alreadyHasBadge,
+    addBadge,
   };
 });

@@ -4,25 +4,17 @@ import { ref } from "vue";
 
 export const useUserStore = defineStore("user", () => {
   const user = ref<User>();
-  const userLoggedIn = ref(false);
-
-  const getUser = (): User | undefined => {
-    return user.value;
-  };
+  const isConnected = ref(false);
 
   const setUser = (u: User) => {
     user.value = u;
-    userLoggedIn.value = true;
+    isConnected.value = true;
   };
 
   const resetUser = () => {
     user.value = undefined;
-    userLoggedIn.value = false;
+    isConnected.value = false;
   };
 
-  const userIsLoggedIn = (): boolean => {
-    return userLoggedIn.value;
-  };
-
-  return { getUser, userIsLoggedIn, setUser, resetUser };
+  return { user, isConnected, setUser, resetUser };
 });
